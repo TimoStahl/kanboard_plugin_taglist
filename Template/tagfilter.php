@@ -1,3 +1,4 @@
+<?php if (isset($taglist) && !empty($taglist)) : ?>
 </div>
 <div class="input-addon-item">
     <div class="dropdown">
@@ -9,3 +10,4 @@
             <?php endforeach ?>
         </ul>
     </div>
+<?php endif ?>

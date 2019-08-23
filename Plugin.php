@@ -10,8 +10,12 @@ class Plugin extends Base
     public function initialize()
     {
         $tagmodel = $this->tagModel;
-        $this->template->hook->attachCallable('template:app:filters-helper:after', 'taglist:tagfilter', function($array) use ($tagmodel) {
-            return ['taglist' => $tagmodel->getAssignableList($array['id'])];
+        $this->template->hook->attachCallable('template:app:filters-helper:after', 'taglist:tagfilter', function($array = array()) use ($tagmodel) {
+            if(!empty($array) && $array['id'] >= 1){
+                return ['taglist' => $tagmodel->getAssignableList($array['id'])];
+            } else {
+                return ['taglist' => array()];
+            }
         });      
     }
     public function onStartup()
