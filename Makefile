@@ -1,5 +1,5 @@
 plugin=Taglist
-version=1.0.1
+version=1.1.0
 
 all:
 	@ echo "Build archive for plugin ${plugin} version=${version}"
