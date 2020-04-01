@@ -14,7 +14,8 @@ class Plugin extends Base
             if(!empty($array) && $array['id'] >= 1){
                 return ['taglist' => $tagmodel->getAssignableList($array['id'])];
             } else {
-                return ['taglist' => array()];
+                // get global tags
+                return ['taglist' => $this->db->hashtable($tagmodel::TABLE)->eq('project_id', 0)->asc('name')->getAll('id', 'name')];
             }
         });      
     }
