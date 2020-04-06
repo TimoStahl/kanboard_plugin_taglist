@@ -12,7 +12,8 @@ class Plugin extends Base
         $tagmodel = $this->tagModel;
         $this->template->hook->attachCallable('template:app:filters-helper:after', 'taglist:tagfilter', function($array = array()) use ($tagmodel) {
             if(!empty($array) && $array['id'] >= 1){
-                return ['taglist' => $tagmodel->getAssignableList($array['id'])];
+                $project = $this->projectModel->getById($array['id']);
+                return ['taglist' => $tagmodel->getAssignableList($array['id'], $project['enable_global_tags'])];
             } else {
                 // get global tags
                 return ['taglist' => $this->db->hashtable($tagmodel::TABLE)->eq('project_id', 0)->asc('name')->getAll('id', 'name')];
@@ -45,6 +46,6 @@ class Plugin extends Base
     }
     public function getCompatibleVersion()
     {
-        return '>=1.2.10';
+        return '>1.2.13';
     }
 }
